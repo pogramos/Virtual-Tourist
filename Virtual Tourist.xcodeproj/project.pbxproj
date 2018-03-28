@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E690363F206C1A89004D22F6 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E690363E206C1A89004D22F6 /* NetworkClient.swift */; };
+		E6903641206C1B46004D22F6 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6903640206C1B46004D22F6 /* NetworkProtocol.swift */; };
 		E6F7F9DC20695DDA0016EF90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F7F9DB20695DDA0016EF90 /* AppDelegate.swift */; };
 		E6F7F9DE20695DDA0016EF90 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F7F9DD20695DDA0016EF90 /* ViewController.swift */; };
 		E6F7F9E120695DDA0016EF90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6F7F9DF20695DDA0016EF90 /* Main.storyboard */; };
@@ -14,6 +16,9 @@
 		E6F7F9E620695DDA0016EF90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6F7F9E520695DDA0016EF90 /* Assets.xcassets */; };
 		E6F7F9E920695DDA0016EF90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6F7F9E720695DDA0016EF90 /* LaunchScreen.storyboard */; };
 		E6F7F9F420695DDA0016EF90 /* Virtual_TouristTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F7F9F320695DDA0016EF90 /* Virtual_TouristTests.swift */; };
+		E6F7FA0020695FEF0016EF90 /* NetworkResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F7F9FF20695FEF0016EF90 /* NetworkResponseHandler.swift */; };
+		E6F7FA02206960550016EF90 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F7FA01206960550016EF90 /* NetworkError.swift */; };
+		E6F7FA06206961DD0016EF90 /* RequestStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F7FA05206961DD0016EF90 /* RequestStatus.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E690363E206C1A89004D22F6 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		E6903640206C1B46004D22F6 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		E6F7F9D820695DDA0016EF90 /* Virtual Tourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Virtual Tourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6F7F9DB20695DDA0016EF90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E6F7F9DD20695DDA0016EF90 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -38,6 +45,9 @@
 		E6F7F9EF20695DDA0016EF90 /* Virtual TouristTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Virtual TouristTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6F7F9F320695DDA0016EF90 /* Virtual_TouristTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Virtual_TouristTests.swift; sourceTree = "<group>"; };
 		E6F7F9F520695DDA0016EF90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E6F7F9FF20695FEF0016EF90 /* NetworkResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponseHandler.swift; sourceTree = "<group>"; };
+		E6F7FA01206960550016EF90 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		E6F7FA05206961DD0016EF90 /* RequestStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStatus.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +68,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E690363D206C1A51004D22F6 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				E6903642206C2389004D22F6 /* Flickr */,
+				E690363E206C1A89004D22F6 /* NetworkClient.swift */,
+				E6903640206C1B46004D22F6 /* NetworkProtocol.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		E6903642206C2389004D22F6 /* Flickr */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Flickr;
+			sourceTree = "<group>";
+		};
 		E6F7F9CF20695DDA0016EF90 = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +106,8 @@
 		E6F7F9DA20695DDA0016EF90 /* Virtual Tourist */ = {
 			isa = PBXGroup;
 			children = (
+				E690363D206C1A51004D22F6 /* Network */,
+				E6F7F9FE20695DF00016EF90 /* Convenience */,
 				E6F7F9DB20695DDA0016EF90 /* AppDelegate.swift */,
 				E6F7F9DD20695DDA0016EF90 /* ViewController.swift */,
 				E6F7F9DF20695DDA0016EF90 /* Main.storyboard */,
@@ -97,6 +126,16 @@
 				E6F7F9F520695DDA0016EF90 /* Info.plist */,
 			);
 			path = "Virtual TouristTests";
+			sourceTree = "<group>";
+		};
+		E6F7F9FE20695DF00016EF90 /* Convenience */ = {
+			isa = PBXGroup;
+			children = (
+				E6F7F9FF20695FEF0016EF90 /* NetworkResponseHandler.swift */,
+				E6F7FA01206960550016EF90 /* NetworkError.swift */,
+				E6F7FA05206961DD0016EF90 /* RequestStatus.swift */,
+			);
+			path = Convenience;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,9 +241,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6F7FA0020695FEF0016EF90 /* NetworkResponseHandler.swift in Sources */,
+				E6F7FA06206961DD0016EF90 /* RequestStatus.swift in Sources */,
 				E6F7F9DE20695DDA0016EF90 /* ViewController.swift in Sources */,
 				E6F7F9E420695DDA0016EF90 /* Virtual_Tourist.xcdatamodeld in Sources */,
+				E6903641206C1B46004D22F6 /* NetworkProtocol.swift in Sources */,
+				E690363F206C1A89004D22F6 /* NetworkClient.swift in Sources */,
 				E6F7F9DC20695DDA0016EF90 /* AppDelegate.swift in Sources */,
+				E6F7FA02206960550016EF90 /* NetworkError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
