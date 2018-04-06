@@ -1,18 +1,12 @@
 //
-//  NetworkProtocol.swift
+//  ClientProtocol.swift
 //  Virtual Tourist
 //
-//  Created by Guilherme on 3/28/18.
+//  Created by Guilherme on 4/5/18.
 //  Copyright © 2018 Progeekt. All rights reserved.
 //
 
 import Foundation
-//
-// The Protocols here used to create my testings of my networking layer were taken from the reference
-// indicated below
-// Reference
-// http://masilotti.com/testing-nsurlsession-input/
-//
 
 typealias DataTaskResult = (Data?, URLResponse?, Error?) -> Void
 

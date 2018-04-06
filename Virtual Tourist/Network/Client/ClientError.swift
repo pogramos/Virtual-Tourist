@@ -1,14 +1,14 @@
 //
-//  NetworkError.swift
+//  ClientResponse.swift
 //  Virtual Tourist
 //
-//  Created by Guilherme on 3/26/18.
+//  Created by Guilherme on 4/6/18.
 //  Copyright © 2018 Progeekt. All rights reserved.
 //
 
 import Foundation
 
-enum NetworkError: Error {
+enum ClientError {
     case unauthorized(Error?)
     case error(Error?)
     case encodeFailure(Error?)

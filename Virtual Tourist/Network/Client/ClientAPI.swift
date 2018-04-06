@@ -1,16 +1,16 @@
 //
-//  NetworkClient.swift
+//  ClientAPI.swift
 //  Virtual Tourist
 //
-//  Created by Guilherme on 3/28/18.
+//  Created by Guilherme on 4/5/18.
 //  Copyright © 2018 Progeekt. All rights reserved.
 //
 
 import Foundation
 
-class NetworkClient {
+class ClientAPI {
     typealias SuccessBlock<T> = (_ result: T?) -> Void
-    typealias FailureBlock = (_ failure: NetworkError?) -> Void
+    typealias FailureBlock = (_ failure: ClientError?) -> Void
 
     private let session: URLSessionProtocol
 
@@ -31,7 +31,7 @@ class NetworkClient {
         task.resume()
     }
 
-    func taskHandler(request: URLRequest, success: @escaping (Data) -> Void, failure: @escaping (NetworkError?) -> Void) -> URLSessionDataTaskProtocol {
+    func taskHandler(request: URLRequest, success: @escaping (Data) -> Void, failure: @escaping (ClientError?) -> Void) -> URLSessionDataTaskProtocol {
         return session.dataTask(with: request, completionHandler: { (data, response, error) in
             guard error == nil else {
                 if let e = error as? URLError {

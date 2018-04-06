@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="16G1314" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="LocationEntity" representedClassName="LocationEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="latitude" optional="YES" attributeType="Float" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Float" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="photosEntity" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PhotoEntity" inverseName="locationEntity" inverseEntity="PhotoEntity" syncable="YES"/>
+    </entity>
+    <entity name="PhotoEntity" representedClassName="PhotoEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photo" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="locationEntity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocationEntity" inverseName="photosEntity" inverseEntity="LocationEntity" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="LocationEntity" positionX="-261" positionY="29" width="108" height="88"/>
+        <element name="PhotoEntity" positionX="-54" positionY="14" width="128" height="103"/>
+    </elements>
+</model>

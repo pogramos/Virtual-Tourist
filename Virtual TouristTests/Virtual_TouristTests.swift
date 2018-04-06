@@ -9,28 +9,43 @@
 import XCTest
 @testable import Virtual_Tourist
 
-class Virtual_TouristTests: XCTestCase {
-    
+class VirtualTouristTests: XCTestCase {
+    var client: ClientAPI!
+    var session = MockURLSession()
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+
+        client = ClientAPI(session: session)
     }
-    
+
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+
+    func testClientRequest() {
+        let request = ClientRequest.buildRequest(host: ClientAPI.Constants.APIHost, path: ClientAPI.Constants.APIPath, parameters: [:])
+
+        XCTAssertEqual(request.url?.absoluteString, "\(ClientAPI.Constants.APIScheme)://\(ClientAPI.Constants.APIHost)\(ClientAPI.Constants.APIPath)")
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+
+    func testGet() {
+        let expected = [PhotoModel(identifier: "1a2b3c", title: "teste", url: "https://www.google.com.br")]
+        let request = URLRequest(url: URL(string: "http://www.google.com.br")!)
+        session.nextResponse = MockURLSession.response200()
+        session.nextData = encode(expected)
+        client.get(request: request, for: [PhotoModel].self, success: { data in
+            XCTAssertEqual(data!, expected)
+        }, failure: { (error) in
+            XCTFail(error?.localizedDescription ?? "")
+        })
+    }
+
+    func encode<T: Encodable>(_ data: T) -> Data? {
+        do {
+            return try JSONEncoder().encode(data)
+        } catch {
+            return nil
         }
     }
-    
+
 }
