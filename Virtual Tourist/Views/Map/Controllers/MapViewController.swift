@@ -23,14 +23,18 @@ class MapViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.setupFetchedResultsController()
+        viewModel.fetchData()
+        if let region = viewModel.initialRegion {
+            mapView.region = region
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        viewModel.clearResultsController()
     }
 
+    /// Setup the longpress gesture for the mapView
+    /// to add the new pin on the selected location
     fileprivate func setupGestureRecognizer() {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction(gesture:)))
         longPressGesture.minimumPressDuration = 2
@@ -38,9 +42,11 @@ class MapViewController: UIViewController {
     }
 
     @objc func longPressAction(gesture: UIGestureRecognizer) {
-        let touchPoint = gesture.location(in: mapView)
-        let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-        viewModel.addAnnotation(on: coordinate)
+        if gesture.state == .began {
+            let touchPoint = gesture.location(in: mapView)
+            let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+            viewModel.addAnnotation(on: coordinate)
+        }
     }
 
     func add(location: LocationEntity) {
@@ -65,5 +71,10 @@ extension MapViewController: MapViewModelProtocol {
 
     func removed(location: LocationEntity) {
         remove(location: location)
+    }
+
+    func updated(location: LocationEntity) {
+        remove(location: location)
+        add(location: location)
     }
 }

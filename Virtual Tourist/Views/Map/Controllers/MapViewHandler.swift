@@ -18,9 +18,7 @@ extension MapViewController: MKMapViewDelegate {
             as? MKPinAnnotationView else {
 
                 let pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: pinIdentifier)
-//                pin.canShowCallout = true
                 pin.pinTintColor = .red
-//                pin.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
 
                 return pin
         }
@@ -30,13 +28,10 @@ extension MapViewController: MKMapViewDelegate {
         return pin
     }
 
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-//        /// Check the annotation's subtitle and try to open it as an url
-//        guard let url = view.annotation?.subtitle as? String else {
-//            return
-//        }
-//        UIApplication.shared.open(url: url)
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        viewModel.initialRegion = mapView.region
     }
 
-
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    }
 }
