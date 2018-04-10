@@ -56,7 +56,7 @@ class MapViewModel: NSObject {
         self.dataController = dataController
     }
 
-    /// Make an instance of the fetchResultsController for its lazy var
+    /// Make an instance of a NSFetchedResultsController for its lazy var
     ///
     /// - Returns: NSFetchedResultsController<LocationEntity> for a lazy var
     fileprivate func makeFetchedResultsController() -> NSFetchedResultsController<LocationEntity> {

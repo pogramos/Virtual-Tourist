@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Album View Controller-->
         <scene sceneID="5Sj-Hr-DGR">
             <objects>
-                <viewController id="ik5-5B-SWH" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AlbumViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ik5-5B-SWH" customClass="AlbumViewController" customModule="Virtual_Tourist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yef-Sb-Rsa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,6 +23,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="171" id="lW7-iZ-dCn"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="ik5-5B-SWH" id="dfS-rk-eno"/>
+                                </connections>
                             </mapView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fVB-0W-n1K">
                                 <rect key="frame" x="0.0" y="215" width="375" height="563"/>
@@ -60,6 +63,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="etA-Pi-jL7"/>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="LKn-54-dpb" id="cWj-mr-Xxd"/>
+                        <outlet property="mapView" destination="Wvc-zZ-jBt" id="tkY-zE-PuG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FeF-Qy-YEa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

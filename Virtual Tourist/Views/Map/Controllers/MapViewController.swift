@@ -11,13 +11,12 @@ import MapKit
 
 class MapViewController: UIViewController {
     var viewModel: MapViewModel!
-
+    var mapHandler: MapHandler!
     @IBOutlet weak var mapView: MKMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.delegate = self
-
+        setupDelegates()
         setupGestureRecognizer()
     }
 
@@ -31,6 +30,13 @@ class MapViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+    }
+
+    /// Setting up the class delegates and handlers
+    fileprivate func setupDelegates() {
+        viewModel.delegate = self
+        mapHandler = MapHandler(self)
+        mapView.delegate = mapHandler
     }
 
     /// Setup the longpress gesture for the mapView
@@ -55,6 +61,18 @@ class MapViewController: UIViewController {
 
     func remove(location: LocationEntity) {
         mapView.removeAnnotation(location)
+    }
+}
+
+extension MapViewController: MapHandlerProtocol {
+    func updateCentral(region: MKCoordinateRegion) {
+        viewModel.initialRegion = region
+    }
+
+    func presentViewController(with selectedRegion: LocationEntity) {
+        let viewController = AlbumViewController.instance()
+        viewController.viewModel = AlbumViewModel(viewModel.dataController, for: selectedRegion)
+        present(viewController, animated: true, completion: nil)
     }
 }
 

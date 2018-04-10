@@ -27,6 +27,7 @@
 		E6C5A60B207BF27400990481 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C5A60A207BF27400990481 /* AlbumViewController.swift */; };
 		E6C5A60F207BF2AE00990481 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C5A60E207BF2AE00990481 /* AlbumViewModel.swift */; };
 		E6C5A611207BF2CA00990481 /* AlbumViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C5A610207BF2CA00990481 /* AlbumViewModelProtocol.swift */; };
+		E6C5A614207D054D00990481 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C5A613207D054D00990481 /* UIViewController+Extension.swift */; };
 		E6EE08D42076B56F00584152 /* ClientAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE08D32076B56F00584152 /* ClientAPI.swift */; };
 		E6EE08D62076B57A00584152 /* ClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE08D52076B57A00584152 /* ClientProtocol.swift */; };
 		E6EE08D82076B58300584152 /* ClientRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE08D72076B58300584152 /* ClientRequest.swift */; };
@@ -71,6 +72,7 @@
 		E6C5A60A207BF27400990481 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		E6C5A60E207BF2AE00990481 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
 		E6C5A610207BF2CA00990481 /* AlbumViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModelProtocol.swift; sourceTree = "<group>"; };
+		E6C5A613207D054D00990481 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		E6EE08D32076B56F00584152 /* ClientAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientAPI.swift; sourceTree = "<group>"; };
 		E6EE08D52076B57A00584152 /* ClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientProtocol.swift; sourceTree = "<group>"; };
 		E6EE08D72076B58300584152 /* ClientRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientRequest.swift; sourceTree = "<group>"; };
@@ -168,7 +170,6 @@
 			isa = PBXGroup;
 			children = (
 				E6C5A5F72077F63900990481 /* MapViewController.swift */,
-				E6C5A6032078177400990481 /* MapViewHandler.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -187,6 +188,7 @@
 			children = (
 				E6C5A5ED2077F2BD00990481 /* NSManagedObjectContext+Extension.swift */,
 				E6C5A5F02077F40600990481 /* UIViewController+UI.swift */,
+				E6C5A613207D054D00990481 /* UIViewController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -212,6 +214,7 @@
 		E6C5A6052078205200990481 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E6C5A612207D037B00990481 /* Shared */,
 				E6C5A6072078209D00990481 /* Album */,
 				E6C5A5E32077E86E00990481 /* Map */,
 			);
@@ -256,6 +259,14 @@
 				E6C5A610207BF2CA00990481 /* AlbumViewModelProtocol.swift */,
 			);
 			path = "View Model";
+			sourceTree = "<group>";
+		};
+		E6C5A612207D037B00990481 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				E6C5A6032078177400990481 /* MapViewHandler.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		E6F7F9CF20695DDA0016EF90 = {
@@ -422,6 +433,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6C5A614207D054D00990481 /* UIViewController+Extension.swift in Sources */,
 				E6EE08D62076B57A00584152 /* ClientProtocol.swift in Sources */,
 				E6C5A60220780A3600990481 /* LocationEntity+Extensions.swift in Sources */,
 				E68777CA2077A57B008EFBBC /* FlickrConstants.swift in Sources */,

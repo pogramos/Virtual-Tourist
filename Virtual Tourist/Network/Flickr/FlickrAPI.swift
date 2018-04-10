@@ -18,11 +18,13 @@ class FlickrAPI {
     ///   - failure: failure block that will be invoked if the service reach any error
     class func searchPhotos(with parameters: [String: AnyObject], success: @escaping ([Photo]?) -> Void, failure: @escaping (ClientError) -> Void) {
         var parameters = parameters
-        parameters[ClientAPI.Key.Method] = ClientAPI.Value.photosSearch as AnyObject
-        parameters[ClientAPI.Key.Extras] = ClientAPI.Value.MediumURL as AnyObject
-        parameters[ClientAPI.Key.SafeSearch] = ClientAPI.Value.SafeSearch as AnyObject
+        parameters[Key.APIKey] = Value.APIKey as AnyObject
+        parameters[Key.Method] = Value.photosSearch as AnyObject
+        parameters[Key.Extras] = Value.MediumURL as AnyObject
+        parameters[Key.SafeSearch] = Value.SafeSearch as AnyObject
+        parameters[Key.NoJSONCallback] = Value.DisableCallback as AnyObject
 
-        let request = ClientRequest.buildRequest(host: ClientAPI.Constants.APIHost, path: ClientAPI.Constants.APIPath, parameters: parameters)
+        let request = ClientRequest.buildRequest(host: Constants.APIHost, path: Constants.APIPath, parameters: parameters)
         ClientAPI().get(request: request, for: Result.self, success: { result in
             success(result?.photos?.photo)
         }, failure: { error in

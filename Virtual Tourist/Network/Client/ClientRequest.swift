@@ -12,7 +12,7 @@ class ClientRequest {
 
     class fileprivate func composeURL(host: String, path: String, parameters: [String: AnyObject]) -> URL {
         var components = URLComponents()
-        components.scheme = ClientAPI.Constants.APIScheme
+        components.scheme = FlickrAPI.Constants.APIScheme
         components.host = host
         components.path = path
 
@@ -28,7 +28,6 @@ class ClientRequest {
     }
 
     class func buildMutableRequest(host: String, path: String, parameters: [String: AnyObject]) -> NSMutableURLRequest {
-        let request = NSMutableURLRequest(url: composeURL(host: host, path: path, parameters: parameters))
-        return request
+        return NSMutableURLRequest(url: composeURL(host: host, path: path, parameters: parameters))
     }
 }

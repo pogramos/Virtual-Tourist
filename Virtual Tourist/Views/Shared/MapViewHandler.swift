@@ -8,7 +8,18 @@
 
 import MapKit
 
-extension MapViewController: MKMapViewDelegate {
+@objc protocol MapHandlerProtocol: class {
+    @objc optional func updateCentral(region: MKCoordinateRegion)
+    @objc optional func presentViewController(with selectedRegion: LocationEntity)
+}
+
+class MapHandler: NSObject, MKMapViewDelegate {
+    weak var delegate: MapHandlerProtocol?
+
+    init(_ delegate: MapHandlerProtocol) {
+        self.delegate = delegate
+    }
+
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let pinIdentifier = "pin"
 
@@ -29,9 +40,12 @@ extension MapViewController: MKMapViewDelegate {
     }
 
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        viewModel.initialRegion = mapView.region
+        delegate?.updateCentral?(region: mapView.region)
     }
 
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let annotation = view.annotation as? LocationEntity {
+            delegate?.presentViewController?(with: annotation)
+        }
     }
 }

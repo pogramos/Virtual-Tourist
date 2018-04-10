@@ -7,29 +7,42 @@
 //
 
 import UIKit
+import MapKit
 
-class AlbumViewController: UIViewController {
+class AlbumViewController: UIViewController, MapHandlerProtocol {
+    var viewModel: AlbumViewModel!
+    var mapHandler: MapHandler!
+
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var collectionView: UICollectionView!
+
+    class func instance() -> Self {
+        return instance(from: "Album", identifier: String(describing: self.self))
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        viewModel.delegate = self
+        mapHandler = MapHandler(self)
+        mapView.delegate = mapHandler
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        mapView.addAnnotation(viewModel.location)
     }
-    
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+extension AlbumViewController: AlbumViewModelProtocol {
+    func finishedFetching(photos: [PhotoEntity]) {
+        collectionView.reloadData()
     }
-    */
 
+    func updated(photos: [PhotoEntity]) {
+
+    }
+
+    func removed(photo: PhotoEntity) {
+
+    }
 }

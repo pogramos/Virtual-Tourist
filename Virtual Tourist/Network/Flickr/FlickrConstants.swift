@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension ClientAPI {
+extension FlickrAPI {
 
     struct Constants {
         static let APIScheme = "https"
@@ -23,6 +23,8 @@ extension ClientAPI {
         static let APIKey = "api_key"
         static let Extras = "extras"
         static let Format = "format"
+        static let Latitute = "lat"
+        static let Longitude = "lon"
         static let NoJSONCallback = "nojsoncallback"
         static let SafeSearch = "safe_search"
     }
