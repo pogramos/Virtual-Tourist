@@ -23,6 +23,10 @@
 		E6C5A5FC2078056900990481 /* MapViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C5A5FB2078056900990481 /* MapViewModelProtocol.swift */; };
 		E6C5A60220780A3600990481 /* LocationEntity+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C5A60120780A3600990481 /* LocationEntity+Extensions.swift */; };
 		E6C5A6042078177400990481 /* MapViewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C5A6032078177400990481 /* MapViewHandler.swift */; };
+		E6C5A609207BE4BF00990481 /* Album.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6C5A608207BE4BE00990481 /* Album.storyboard */; };
+		E6C5A60B207BF27400990481 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C5A60A207BF27400990481 /* AlbumViewController.swift */; };
+		E6C5A60F207BF2AE00990481 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C5A60E207BF2AE00990481 /* AlbumViewModel.swift */; };
+		E6C5A611207BF2CA00990481 /* AlbumViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C5A610207BF2CA00990481 /* AlbumViewModelProtocol.swift */; };
 		E6EE08D42076B56F00584152 /* ClientAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE08D32076B56F00584152 /* ClientAPI.swift */; };
 		E6EE08D62076B57A00584152 /* ClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE08D52076B57A00584152 /* ClientProtocol.swift */; };
 		E6EE08D82076B58300584152 /* ClientRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE08D72076B58300584152 /* ClientRequest.swift */; };
@@ -63,6 +67,10 @@
 		E6C5A5FB2078056900990481 /* MapViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelProtocol.swift; sourceTree = "<group>"; };
 		E6C5A60120780A3600990481 /* LocationEntity+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationEntity+Extensions.swift"; sourceTree = "<group>"; };
 		E6C5A6032078177400990481 /* MapViewHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewHandler.swift; sourceTree = "<group>"; };
+		E6C5A608207BE4BE00990481 /* Album.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Album.storyboard; sourceTree = "<group>"; };
+		E6C5A60A207BF27400990481 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
+		E6C5A60E207BF2AE00990481 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
+		E6C5A610207BF2CA00990481 /* AlbumViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModelProtocol.swift; sourceTree = "<group>"; };
 		E6EE08D32076B56F00584152 /* ClientAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientAPI.swift; sourceTree = "<group>"; };
 		E6EE08D52076B57A00584152 /* ClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientProtocol.swift; sourceTree = "<group>"; };
 		E6EE08D72076B58300584152 /* ClientRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientRequest.swift; sourceTree = "<group>"; };
@@ -149,7 +157,7 @@
 		E6C5A5E32077E86E00990481 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				E6C5A5EB2077F06B00990481 /* ViewModel */,
+				E6C5A5EB2077F06B00990481 /* View Model */,
 				E6C5A5EA2077F06500990481 /* Controllers */,
 				E6C5A5E42077E87D00990481 /* Map.storyboard */,
 			);
@@ -165,13 +173,13 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		E6C5A5EB2077F06B00990481 /* ViewModel */ = {
+		E6C5A5EB2077F06B00990481 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
 				E6C5A5F92077F7F800990481 /* MapViewModel.swift */,
 				E6C5A5FB2078056900990481 /* MapViewModelProtocol.swift */,
 			);
-			path = ViewModel;
+			path = "View Model";
 			sourceTree = "<group>";
 		};
 		E6C5A5EC2077F29E00990481 /* Extensions */ = {
@@ -226,8 +234,28 @@
 		E6C5A6072078209D00990481 /* Album */ = {
 			isa = PBXGroup;
 			children = (
+				E6C5A60D207BF28400990481 /* View Model */,
+				E6C5A60C207BF27900990481 /* Controllers */,
+				E6C5A608207BE4BE00990481 /* Album.storyboard */,
 			);
 			path = Album;
+			sourceTree = "<group>";
+		};
+		E6C5A60C207BF27900990481 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E6C5A60A207BF27400990481 /* AlbumViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E6C5A60D207BF28400990481 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				E6C5A60E207BF2AE00990481 /* AlbumViewModel.swift */,
+				E6C5A610207BF2CA00990481 /* AlbumViewModelProtocol.swift */,
+			);
+			path = "View Model";
 			sourceTree = "<group>";
 		};
 		E6F7F9CF20695DDA0016EF90 = {
@@ -359,6 +387,7 @@
 				E6F7F9E620695DDA0016EF90 /* Assets.xcassets in Resources */,
 				E6F7F9E120695DDA0016EF90 /* Main.storyboard in Resources */,
 				E6C5A5E52077E87D00990481 /* Map.storyboard in Resources */,
+				E6C5A609207BE4BF00990481 /* Album.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,6 +428,7 @@
 				E6F7F9DE20695DDA0016EF90 /* ViewController.swift in Sources */,
 				E6EE08D42076B56F00584152 /* ClientAPI.swift in Sources */,
 				E68777CD2077A8AE008EFBBC /* Photo.swift in Sources */,
+				E6C5A60B207BF27400990481 /* AlbumViewController.swift in Sources */,
 				E6C5A6042078177400990481 /* MapViewHandler.swift in Sources */,
 				E6C5A5E72077EAD200990481 /* Photos.swift in Sources */,
 				E6C5A5E92077EBF000990481 /* Result.swift in Sources */,
@@ -411,7 +441,9 @@
 				E6EE08D82076B58300584152 /* ClientRequest.swift in Sources */,
 				E6C5A5FA2077F7F800990481 /* MapViewModel.swift in Sources */,
 				E6F7F9DC20695DDA0016EF90 /* AppDelegate.swift in Sources */,
+				E6C5A611207BF2CA00990481 /* AlbumViewModelProtocol.swift in Sources */,
 				E6EE08DE2076B6A300584152 /* FlickrAPI.swift in Sources */,
+				E6C5A60F207BF2AE00990481 /* AlbumViewModel.swift in Sources */,
 				E6C5A5F82077F63900990481 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

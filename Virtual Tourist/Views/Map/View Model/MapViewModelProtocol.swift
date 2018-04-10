@@ -25,7 +25,7 @@ protocol MapViewModelProtocol: class {
     /// - Parameter point: LocationEntity object
     func removed(location: LocationEntity)
 
-    /// TTells the delegate that the context finished updating a location
+    /// Tells the delegate that the context finished updating a location
     ///
     /// - Parameter location: LocationEntity object
     func updated(location: LocationEntity)

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ik5-5B-SWH">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="5Sj-Hr-DGR">
+            <objects>
+                <viewController id="ik5-5B-SWH" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Yef-Sb-Rsa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Wvc-zZ-jBt">
+                                <rect key="frame" x="0.0" y="44" width="375" height="171"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="171" id="lW7-iZ-dCn"/>
+                                </constraints>
+                            </mapView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fVB-0W-n1K">
+                                <rect key="frame" x="0.0" y="215" width="375" height="563"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LKn-54-dpb">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="523"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FnV-iz-HSe">
+                                            <size key="itemSize" width="50" height="50"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells/>
+                                    </collectionView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHv-6J-0pM">
+                                        <rect key="frame" x="0.0" y="523" width="375" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="J91-5z-26D"/>
+                                        </constraints>
+                                        <state key="normal" title="NEW COLLECTION"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="etA-Pi-jL7" firstAttribute="bottom" secondItem="fVB-0W-n1K" secondAttribute="bottom" id="DgJ-xz-XAh"/>
+                            <constraint firstItem="fVB-0W-n1K" firstAttribute="top" secondItem="Wvc-zZ-jBt" secondAttribute="bottom" id="QLC-CV-G7p"/>
+                            <constraint firstItem="Wvc-zZ-jBt" firstAttribute="trailing" secondItem="etA-Pi-jL7" secondAttribute="trailing" id="Xc6-F1-0UK"/>
+                            <constraint firstItem="Wvc-zZ-jBt" firstAttribute="leading" secondItem="etA-Pi-jL7" secondAttribute="leading" id="hwO-fm-Qf8"/>
+                            <constraint firstItem="fVB-0W-n1K" firstAttribute="leading" secondItem="etA-Pi-jL7" secondAttribute="leading" id="l6k-RN-PZl"/>
+                            <constraint firstItem="Wvc-zZ-jBt" firstAttribute="top" secondItem="etA-Pi-jL7" secondAttribute="top" id="oXM-zM-sfO"/>
+                            <constraint firstItem="fVB-0W-n1K" firstAttribute="trailing" secondItem="etA-Pi-jL7" secondAttribute="trailing" id="tSr-bJ-Lhz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="etA-Pi-jL7"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FeF-Qy-YEa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-95.200000000000003" y="99.753694581280797"/>
+        </scene>
+    </scenes>
+</document>
