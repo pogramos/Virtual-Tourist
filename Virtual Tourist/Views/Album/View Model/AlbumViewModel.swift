@@ -16,6 +16,16 @@ class AlbumViewModel: NSObject {
     var dataController: DataController!
     let location: LocationEntity!
 
+    private(set) var photos: [PhotoEntity] {
+        get {
+            if let items = fetchedResultsController.fetchedObjects {
+                return items
+            }
+            return []
+        }
+        set { self.photos = newValue }
+    }
+
     fileprivate lazy var fetchedResultsController: NSFetchedResultsController<PhotoEntity> = makeFetchedResultsController()
 
     init(_ dataController: DataController, for location: LocationEntity) {
@@ -68,23 +78,32 @@ class AlbumViewModel: NSObject {
     }
 
     func savePhotosAndUpdateUI(photos: [Photo]) {
-        var entities = [PhotoEntity]()
         for photo in photos {
             let photoEntity = PhotoEntity(context: dataController.viewContext)
             photoEntity.identifier = photo.identifier
             photoEntity.locationEntity = location
             photoEntity.url = photo.url
 
-            entities.append(photoEntity)
+            self.photos.append(photoEntity)
         }
 
         do {
-            if entities.count > 0 {
+            if self.photos.count > 0 {
                 try dataController.viewContext.save()
             }
-            delegate?.finishedFetching(photos: entities)
+            delegate?.finishedFetching(photos: self.photos)
         } catch let error {
             fatalError("\(error.localizedDescription)")
+        }
+    }
+
+    func removePhoto(at indexPath:IndexPath) {
+        do {
+            let photo = fetchedResultsController.object(at: indexPath)
+            dataController.viewContext.delete(photo)
+            try dataController.viewContext.checkAndSave()
+        } catch let error {
+            fatalError(error.localizedDescription)
         }
     }
 }

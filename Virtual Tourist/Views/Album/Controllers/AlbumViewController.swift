@@ -33,6 +33,17 @@ class AlbumViewController: UIViewController, MapHandlerProtocol {
     }
 }
 
+extension AlbumViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.photos.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+    }
+
+}
+
 extension AlbumViewController: AlbumViewModelProtocol {
     func finishedFetching(photos: [PhotoEntity]) {
         collectionView.reloadData()

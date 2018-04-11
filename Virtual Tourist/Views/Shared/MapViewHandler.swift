@@ -10,7 +10,7 @@ import MapKit
 
 @objc protocol MapHandlerProtocol: class {
     @objc optional func updateCentral(region: MKCoordinateRegion)
-    @objc optional func presentViewController(with selectedRegion: LocationEntity)
+    @objc optional func pushViewController(with selectedRegion: LocationEntity)
 }
 
 class MapHandler: NSObject, MKMapViewDelegate {
@@ -45,7 +45,8 @@ class MapHandler: NSObject, MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let annotation = view.annotation as? LocationEntity {
-            delegate?.presentViewController?(with: annotation)
+            delegate?.pushViewController?(with: annotation)
+            mapView.deselectAnnotation(annotation, animated: true)
         }
     }
 }

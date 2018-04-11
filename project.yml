@@ -1,0 +1,7 @@
+name: DemoApp
+targets:
+  DemoApp:
+    type: application
+    platform: iOS
+    deploymentTarget: 10.0
+    sources: [Sources]

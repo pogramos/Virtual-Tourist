@@ -19,11 +19,11 @@ enum ClientError {
 
     var localizedDescription: String {
         switch self {
-        case .unauthorized(let e): return "Unauthorized user \(e?.localizedDescription ?? "")"
-        case .encodeFailure(let e): return "Failed to encode object \(e?.localizedDescription ?? "")"
-        case .decodeFailure(let e): return "Failed to decode object \(e?.localizedDescription ?? "")"
-        case .noResultsFound(let e): return "No data was returned by the request \(e?.localizedDescription ?? "")"
-        case .error(let e), .networkFailure(let e), .unavailableConnection(let e): return "There was an error with your request \(e?.localizedDescription ?? "")"
+        case .unauthorized(let error): return "Unauthorized user \(error?.localizedDescription ?? "")"
+        case .encodeFailure(let error): return "Failed to encode object \(error?.localizedDescription ?? "")"
+        case .decodeFailure(let error): return "Failed to decode object \(error?.localizedDescription ?? "")"
+        case .noResultsFound(let error): return "No data was returned by the request \(error?.localizedDescription ?? "")"
+        case .error(let error), .networkFailure(let error), .unavailableConnection(let error): return "There was an error with your request \(error?.localizedDescription ?? "")"
         }
     }
 }

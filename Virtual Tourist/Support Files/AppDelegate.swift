@@ -19,8 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         dataController.load()
-        if let mapViewController = window?.rootViewController as? MapViewController {
-            mapViewController.viewModel = MapViewModel(dataController)
+        if let navigationController = window?.rootViewController as? UINavigationController {
+            if let mapViewController = navigationController.viewControllers.first as? MapViewController {
+                mapViewController.viewModel = MapViewModel(dataController)
+            }
         }
 
         return true

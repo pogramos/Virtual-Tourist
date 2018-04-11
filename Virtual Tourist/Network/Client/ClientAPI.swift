@@ -34,12 +34,12 @@ class ClientAPI {
     func taskHandler(request: URLRequest, success: @escaping (Data) -> Void, failure: @escaping (ClientError?) -> Void) -> URLSessionDataTaskProtocol {
         return session.dataTask(with: request, completionHandler: { (data, response, error) in
             guard error == nil else {
-                if let e = error as? URLError {
-                    switch e.code {
+                if let error = error as? URLError {
+                    switch error.code {
                     case .notConnectedToInternet, .networkConnectionLost:
-                        failure(.unavailableConnection(e))
+                        failure(.unavailableConnection(error))
                     default:
-                        failure(.error(e))
+                        failure(.error(error))
                     }
                 } else {
                     failure(.error(error))

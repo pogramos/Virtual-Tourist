@@ -26,10 +26,12 @@ class MapViewController: UIViewController {
         if let region = viewModel.initialRegion {
             mapView.region = region
         }
+        navigationController?.isNavigationBarHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
     /// Setting up the class delegates and handlers
@@ -69,10 +71,10 @@ extension MapViewController: MapHandlerProtocol {
         viewModel.initialRegion = region
     }
 
-    func presentViewController(with selectedRegion: LocationEntity) {
+    func pushViewController(with selectedRegion: LocationEntity) {
         let viewController = AlbumViewController.instance()
         viewController.viewModel = AlbumViewModel(viewModel.dataController, for: selectedRegion)
-        present(viewController, animated: true, completion: nil)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 

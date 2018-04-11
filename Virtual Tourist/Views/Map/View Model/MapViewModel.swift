@@ -24,9 +24,9 @@ class MapViewModel: NSObject {
     var initialRegion: MKCoordinateRegion? {
         get {
             if let region = UserDefaults.standard.dictionary(forKey: regionKey) {
-                if let latitudeDelta = region[latDeltaKey] as? Float, let longitudeDelta = region[lonDeltaKey] as? Float {
+                if let latitudeDelta = region[latDeltaKey] as? Double, let longitudeDelta = region[lonDeltaKey] as? Double {
                     let span = MKCoordinateSpanMake(CLLocationDegrees(latitudeDelta), CLLocationDegrees(longitudeDelta))
-                    if let latitude = region[latitudeKey] as? Float, let longitude = region[longitudeKey] as? Float {
+                    if let latitude = region[latitudeKey] as? Double, let longitude = region[longitudeKey] as? Double {
                         let coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(latitude), CLLocationDegrees(longitude))
                         return MKCoordinateRegionMake(coordinate, span)
                     }
