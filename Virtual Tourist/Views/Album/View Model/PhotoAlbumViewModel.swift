@@ -1,5 +1,5 @@
 //
-//  AlbumViewModel.swift
+//  PhotoAlbumViewModel.swift
 //  Virtual Tourist
 //
 //  Created by Guilherme on 4/9/18.
@@ -10,25 +10,25 @@ import Foundation
 import CoreData
 import MapKit
 
-class AlbumViewModel: NSObject {
+class PhotoAlbumViewModel: NSObject {
 
-    weak var delegate: AlbumViewModelProtocol?
+    weak var delegate: PhotoAlbumViewModelProtocol?
     var dataController: DataController!
-    let location: LocationEntity!
+    let location: PinEntity!
 
-    private(set) var photos: [PhotoEntity] {
+    private var entities = [PhotoEntity]()
+    private (set) var photos: [PhotoEntity] {
         get {
-            if let items = fetchedResultsController.fetchedObjects {
-                return items
-            }
-            return []
+            return self.entities
         }
-        set { self.photos = newValue }
+        set (photos) {
+            self.entities = photos
+        }
     }
 
     fileprivate lazy var fetchedResultsController: NSFetchedResultsController<PhotoEntity> = makeFetchedResultsController()
 
-    init(_ dataController: DataController, for location: LocationEntity) {
+    init(_ dataController: DataController, for location: PinEntity) {
         self.dataController = dataController
         self.location = location
     }
@@ -39,8 +39,8 @@ class AlbumViewModel: NSObject {
     fileprivate func makeFetchedResultsController() -> NSFetchedResultsController<PhotoEntity> {
         let fetchRequest: NSFetchRequest<PhotoEntity> = PhotoEntity.fetchRequest()
         fetchRequest.sortDescriptors = []
-
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "photos")
+        fetchRequest.predicate = NSPredicate(format: "locationEntity == %@", location)
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "photos_\(location.latitude)_\(location.longitude)")
         fetchedResultsController.delegate = self
 
         return fetchedResultsController
@@ -54,7 +54,9 @@ class AlbumViewModel: NSObject {
             fatalError("Could not fetch locations on the database: \(error.localizedDescription)")
         }
 
-        if let photos = fetchedResultsController.fetchedObjects {
+        if let photos = fetchedResultsController.fetchedObjects, photos.count > 0 {
+            self.photos = photos
+            
             delegate?.finishedFetching(photos: photos)
         } else {
             searchPhotos()
@@ -70,10 +72,14 @@ class AlbumViewModel: NSObject {
         FlickrAPI.searchPhotos(with: parameters, success: { photos in
             if let photos = photos {
                 self.savePhotosAndUpdateUI(photos: photos)
+            } else {
+                self.savePhotosAndUpdateUI(photos: [])
             }
-            self.savePhotosAndUpdateUI(photos: [])
-        }, failure: { _ in
-            self.delegate?.finishedFetching(photos: [])
+        }, failure: { error in
+            print(error.localizedDescription)
+            performUIUpdatesOnMain {
+                self.delegate?.finishedFetching(photos: [])
+            }
         })
     }
 
@@ -91,13 +97,27 @@ class AlbumViewModel: NSObject {
             if self.photos.count > 0 {
                 try dataController.viewContext.save()
             }
-            delegate?.finishedFetching(photos: self.photos)
+            performUIUpdatesOnMain {
+                self.delegate?.finishedFetching(photos: self.photos)
+            }
         } catch let error {
             fatalError("\(error.localizedDescription)")
         }
     }
 
-    func removePhoto(at indexPath:IndexPath) {
+    func photo(at indexPath: IndexPath) -> PhotoEntity {
+        return self.photos[indexPath.row]
+    }
+
+    func save() {
+        do {
+            try dataController.viewContext.checkAndSave()
+        } catch let error {
+            fatalError(error.localizedDescription)
+        }
+    }
+
+    func removePhoto(at indexPath: IndexPath) {
         do {
             let photo = fetchedResultsController.object(at: indexPath)
             dataController.viewContext.delete(photo)
@@ -108,7 +128,7 @@ class AlbumViewModel: NSObject {
     }
 }
 
-extension AlbumViewModel: NSFetchedResultsControllerDelegate {
+extension PhotoAlbumViewModel: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         guard let photo = anObject as? PhotoEntity else {
             preconditionFailure("All changes observed in the map view controller should be for LocationEntity instances")

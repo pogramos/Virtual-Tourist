@@ -22,6 +22,7 @@ class MapViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        Loader.show(on: self)
         viewModel.fetchData()
         if let region = viewModel.initialRegion {
             mapView.region = region
@@ -57,11 +58,11 @@ class MapViewController: UIViewController {
         }
     }
 
-    func add(location: LocationEntity) {
+    func add(location: PinEntity) {
         mapView.addAnnotation(location)
     }
 
-    func remove(location: LocationEntity) {
+    func remove(location: PinEntity) {
         mapView.removeAnnotation(location)
     }
 }
@@ -71,29 +72,30 @@ extension MapViewController: MapHandlerProtocol {
         viewModel.initialRegion = region
     }
 
-    func pushViewController(with selectedRegion: LocationEntity) {
-        let viewController = AlbumViewController.instance()
-        viewController.viewModel = AlbumViewModel(viewModel.dataController, for: selectedRegion)
+    func pushViewController(with selectedRegion: PinEntity) {
+        let viewController = PhotoAlbumViewController.instance()
+        viewController.viewModel = PhotoAlbumViewModel(viewModel.dataController, for: selectedRegion)
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
 extension MapViewController: MapViewModelProtocol {
-    func finishedFetching(locations: [LocationEntity]) {
+    func finishedFetching(locations: [PinEntity]) {
         for point in locations {
             add(location: point)
         }
+        Loader.hide()
     }
 
-    func added(location: LocationEntity) {
+    func added(location: PinEntity) {
         add(location: location)
     }
 
-    func removed(location: LocationEntity) {
+    func removed(location: PinEntity) {
         remove(location: location)
     }
 
-    func updated(location: LocationEntity) {
+    func updated(location: PinEntity) {
         remove(location: location)
         add(location: location)
     }

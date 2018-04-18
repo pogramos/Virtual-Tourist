@@ -13,20 +13,20 @@ protocol MapViewModelProtocol: class {
     /// Tells the delegate that the context has finished fetching the stored locations
     ///
     /// - Parameter locations: Collection of LocationEntity
-    func finishedFetching(locations: [LocationEntity])
+    func finishedFetching(locations: [PinEntity])
 
     /// Tells the delegate that the context finished adding a location
     ///
     /// - Parameter point: LocationEntity object
-    func added(location: LocationEntity)
+    func added(location: PinEntity)
 
     /// Tells the delegate that the context finished removing a location
     ///
     /// - Parameter point: LocationEntity object
-    func removed(location: LocationEntity)
+    func removed(location: PinEntity)
 
     /// Tells the delegate that the context finished updating a location
     ///
     /// - Parameter location: LocationEntity object
-    func updated(location: LocationEntity)
+    func updated(location: PinEntity)
 }

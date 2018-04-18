@@ -14,14 +14,12 @@ struct Photos: Codable {
     let perPage: Int?
     let total: String?
     let photo: [Photo]?
-    let stat: String?
 }
 
 extension Photos: Equatable {
     static func == (lhs: Photos, rhs: Photos) -> Bool {
         var equal = lhs.page == rhs.page && lhs.pages == rhs.pages &&
-                lhs.perPage == rhs.perPage && lhs.total == rhs.total &&
-                lhs.stat == rhs.stat
+                lhs.perPage == rhs.perPage && lhs.total == rhs.total
         if let lPhoto = lhs.photo, let rPhoto = rhs.photo {
             equal = lPhoto == rPhoto
         } else {

@@ -15,9 +15,10 @@ class ClientRequest {
         components.scheme = FlickrAPI.Constants.APIScheme
         components.host = host
         components.path = path
+        components.queryItems = [URLQueryItem]()
 
         for (key, value) in parameters {
-            components.queryItems?.append(URLQueryItem(name: key, value: value as? String))
+            components.queryItems?.append(URLQueryItem(name: key, value: "\(value)"))
         }
 
         return components.url!

@@ -1,5 +1,5 @@
 //
-//  AlbumViewModelProtocol.swift
+//  PhotoAlbumViewModelProtocol.swift
 //  Virtual Tourist
 //
 //  Created by Guilherme on 4/9/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc protocol AlbumViewModelProtocol: class {
+@objc protocol PhotoAlbumViewModelProtocol: class {
     /// Tells the delegate that the context has finished fetching the photos
     ///
     /// - Parameter photos: Photo Entities

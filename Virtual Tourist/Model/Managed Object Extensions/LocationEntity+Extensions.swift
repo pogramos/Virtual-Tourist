@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import MapKit
 
-extension LocationEntity: MKAnnotation {
+extension PinEntity: MKAnnotation {
     public var coordinate: CLLocationCoordinate2D {
         let latitudeDegrees = CLLocationDegrees(latitude)
         let longitudeDegrees = CLLocationDegrees(longitude)
@@ -18,6 +18,6 @@ extension LocationEntity: MKAnnotation {
     }
 
     class func keyPathsForValuesAffectingCoordinate() -> Set<String> {
-        return Set([#keyPath(LocationEntity.latitude), #keyPath(LocationEntity.longitude)])
+        return Set([#keyPath(PinEntity.latitude), #keyPath(PinEntity.longitude)])
     }
 }

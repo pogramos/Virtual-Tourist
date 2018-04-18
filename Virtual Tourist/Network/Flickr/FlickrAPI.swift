@@ -23,6 +23,7 @@ class FlickrAPI {
         parameters[Key.Extras] = Value.MediumURL as AnyObject
         parameters[Key.SafeSearch] = Value.SafeSearch as AnyObject
         parameters[Key.NoJSONCallback] = Value.DisableCallback as AnyObject
+        parameters[Key.Format] = Value.Format as AnyObject
 
         let request = ClientRequest.buildRequest(host: Constants.APIHost, path: Constants.APIPath, parameters: parameters)
         ClientAPI().get(request: request, for: Result.self, success: { result in
@@ -30,5 +31,26 @@ class FlickrAPI {
         }, failure: { error in
             failure(error ?? .error(nil))
         })
+    }
+
+    class func downloadImage(from url: String, completion: @escaping (Data?) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let imageURL = URL(string: url) {
+                do {
+                    let data = try Data(contentsOf: imageURL)
+                    performUIUpdatesOnMain {
+                        completion(data)
+                    }
+                } catch {
+                    performUIUpdatesOnMain {
+                        completion(nil)
+                    }
+                }
+            } else {
+                performUIUpdatesOnMain {
+                    completion(nil)
+                }
+            }
+        }
     }
 }

@@ -50,7 +50,7 @@ class MapViewModel: NSObject {
         }
     }
 
-    fileprivate lazy var fetchedResultsController: NSFetchedResultsController<LocationEntity> = makeFetchedResultsController()
+    fileprivate lazy var fetchedResultsController: NSFetchedResultsController<PinEntity> = makeFetchedResultsController()
 
     init(_ dataController: DataController) {
         self.dataController = dataController
@@ -59,11 +59,11 @@ class MapViewModel: NSObject {
     /// Make an instance of a NSFetchedResultsController for its lazy var
     ///
     /// - Returns: NSFetchedResultsController<LocationEntity> for a lazy var
-    fileprivate func makeFetchedResultsController() -> NSFetchedResultsController<LocationEntity> {
-        let fetchRequest: NSFetchRequest<LocationEntity> = LocationEntity.fetchRequest()
+    fileprivate func makeFetchedResultsController() -> NSFetchedResultsController<PinEntity> {
+        let fetchRequest: NSFetchRequest<PinEntity> = PinEntity.fetchRequest()
         fetchRequest.sortDescriptors = []
 
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "locations")
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "pins")
         fetchedResultsController.delegate = self
 
         return fetchedResultsController
@@ -88,7 +88,7 @@ class MapViewModel: NSObject {
     ///
     /// - Parameter coordinate: CLLocationCoordinate2D object from the annotation
     func addAnnotation(on coordinate: CLLocationCoordinate2D) {
-        let locationEntity = LocationEntity(context: dataController.viewContext)
+        let locationEntity = PinEntity(context: dataController.viewContext)
 
         locationEntity.latitude = Float(coordinate.latitude)
         locationEntity.longitude = Float(coordinate.longitude)
@@ -99,7 +99,7 @@ class MapViewModel: NSObject {
 
 extension MapViewModel: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        guard let location = anObject as? LocationEntity else {
+        guard let location = anObject as? PinEntity else {
             preconditionFailure("All changes observed in the map view controller should be for LocationEntity instances")
         }
 
