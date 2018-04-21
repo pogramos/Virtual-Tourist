@@ -15,22 +15,16 @@ class PhotoAlbumViewModel: NSObject {
     weak var delegate: PhotoAlbumViewModelProtocol?
     var dataController: DataController!
     let location: PinEntity!
-
-    private var entities = [PhotoEntity]()
-    private (set) var photos: [PhotoEntity] {
-        get {
-            return self.entities
-        }
-        set (photos) {
-            self.entities = photos
-        }
-    }
+    let span: MKCoordinateSpan!
+    private (set) var region: MKCoordinateRegion!
 
     fileprivate lazy var fetchedResultsController: NSFetchedResultsController<PhotoEntity> = makeFetchedResultsController()
 
-    init(_ dataController: DataController, for location: PinEntity) {
+    init(_ dataController: DataController, for location: PinEntity, span: MKCoordinateSpan) {
         self.dataController = dataController
         self.location = location
+        self.span = span
+        region = MKCoordinateRegionMake(self.location.coordinate, self.span)
     }
 
     /// Create an instance of a NSFetchedResultsController for a lazy var
@@ -55,12 +49,21 @@ class PhotoAlbumViewModel: NSObject {
         }
 
         if let photos = fetchedResultsController.fetchedObjects, photos.count > 0 {
-            self.photos = photos
-            
-            delegate?.finishedFetching(photos: photos)
+            delegate?.finishedFetching()
         } else {
             searchPhotos()
         }
+    }
+
+    func fetchNewCollection() {
+        if let photos = self.fetchedResultsController.fetchedObjects {
+            for photo in photos {
+                self.dataController.viewContext.delete(photo)
+            }
+
+            self.save()
+        }
+        searchPhotos()
     }
 
     /// Search photos from flickr by the specific coordinate of the location
@@ -78,40 +81,43 @@ class PhotoAlbumViewModel: NSObject {
         }, failure: { error in
             print(error.localizedDescription)
             performUIUpdatesOnMain {
-                self.delegate?.finishedFetching(photos: [])
+                self.delegate?.finishedFetching()
             }
         })
     }
 
+    /// Save photos to the Core Data model and update the UI when finished
+    ///
+    /// - Parameter photos: return a collection of Photos
     func savePhotosAndUpdateUI(photos: [Photo]) {
         for photo in photos {
             let photoEntity = PhotoEntity(context: dataController.viewContext)
             photoEntity.identifier = photo.identifier
             photoEntity.locationEntity = location
             photoEntity.url = photo.url
-
-            self.photos.append(photoEntity)
         }
 
-        do {
-            if self.photos.count > 0 {
-                try dataController.viewContext.save()
-            }
+        save {
             performUIUpdatesOnMain {
-                self.delegate?.finishedFetching(photos: self.photos)
+                self.delegate?.finishedFetching()
             }
-        } catch let error {
-            fatalError("\(error.localizedDescription)")
         }
     }
 
     func photo(at indexPath: IndexPath) -> PhotoEntity {
-        return self.photos[indexPath.row]
+        return fetchedResultsController.object(at: indexPath)
     }
 
-    func save() {
+    func numberOfItemsInSection(section: Int) -> Int {
+        return fetchedResultsController.fetchedObjects?.count ?? 0
+    }
+
+    func save(_ block: (() -> Void)? = nil) {
         do {
             try dataController.viewContext.checkAndSave()
+            if let block = block {
+                block()
+            }
         } catch let error {
             fatalError(error.localizedDescription)
         }
@@ -130,15 +136,9 @@ class PhotoAlbumViewModel: NSObject {
 
 extension PhotoAlbumViewModel: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        guard let photo = anObject as? PhotoEntity else {
-            preconditionFailure("All changes observed in the map view controller should be for LocationEntity instances")
-        }
-
         switch type {
-        case .insert:
-            break
         case .delete:
-            delegate?.removed(photo: photo)
+            delegate?.removed()
         default:
             break
         }

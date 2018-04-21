@@ -10,9 +10,7 @@ import Foundation
 
 @objc protocol PhotoAlbumViewModelProtocol: class {
     /// Tells the delegate that the context has finished fetching the photos
-    ///
-    /// - Parameter photos: Photo Entities
-    func finishedFetching(photos: [PhotoEntity])
+    func finishedFetching()
 
     /// Tells the delegate that the context finished updating the photo album
     ///
@@ -20,7 +18,5 @@ import Foundation
     func updated(photos: [PhotoEntity])
 
     /// Tells the delegate that the context finished deleting the photo
-    ///
-    /// - Parameter photo: PhotoEntity Object to remove
-    func removed(photo: PhotoEntity)
+    func removed()
 }

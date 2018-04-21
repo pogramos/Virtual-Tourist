@@ -11,4 +11,10 @@ import UIKit
 class PhotoAlbumCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
+    func setupImage(data: Data) {
+        self.imageView.image = UIImage(data: data)
+        self.activityIndicator.hidesWhenStopped = true
+        self.activityIndicator.stopAnimating()
+    }
 }

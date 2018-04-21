@@ -46,7 +46,7 @@ class MapViewController: UIViewController {
     /// to add the new pin on the selected location
     fileprivate func setupGestureRecognizer() {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction(gesture:)))
-        longPressGesture.minimumPressDuration = 2
+        longPressGesture.minimumPressDuration = 1
         mapView.addGestureRecognizer(longPressGesture)
     }
 
@@ -72,9 +72,9 @@ extension MapViewController: MapHandlerProtocol {
         viewModel.initialRegion = region
     }
 
-    func pushViewController(with selectedRegion: PinEntity) {
+    func pushViewController(with selectedRegion: PinEntity, span: MKCoordinateSpan) {
         let viewController = PhotoAlbumViewController.instance()
-        viewController.viewModel = PhotoAlbumViewModel(viewModel.dataController, for: selectedRegion)
+        viewController.viewModel = PhotoAlbumViewModel(viewModel.dataController, for: selectedRegion, span: span)
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

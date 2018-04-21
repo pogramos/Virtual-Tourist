@@ -30,6 +30,7 @@ class PhotoAlbumViewController: UIViewController, MapHandlerProtocol {
         Loader.show(on: self)
         viewModel.fetchData()
         mapView.addAnnotation(viewModel.location)
+        mapView.setRegion(viewModel.region, animated: true)
     }
 
     fileprivate func setupDelegates() {
@@ -39,13 +40,14 @@ class PhotoAlbumViewController: UIViewController, MapHandlerProtocol {
     }
 
     @IBAction func newCollection(_ sender: Any) {
-        self.viewModel.searchPhotos()
+        Loader.show(on: self)
+        viewModel.fetchNewCollection()
     }
 }
 
 extension PhotoAlbumViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.photos.count
+        return viewModel.numberOfItemsInSection(section: section)
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -57,19 +59,21 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
         return UICollectionViewCell()
     }
 
+    /// Configure cell with the indexPath of the items stored on the viewModel
+    ///
+    /// - Parameters:
+    ///   - cell: current cell of the collectionview
+    ///   - indexPath: indexpath of the item
     fileprivate func config(cell: PhotoAlbumCollectionViewCell, at indexPath: IndexPath) {
         let photo = self.viewModel.photo(at: indexPath)
         if let data = photo.photo {
-            cell.activityIndicator.stopAnimating()
-            cell.imageView.image = UIImage(data: data)
+            cell.setupImage(data: data)
         } else {
             cell.activityIndicator.startAnimating()
             if let url = photo.url {
                 FlickrAPI.downloadImage(from: url) { data in
                     if let data = data {
-                        cell.activityIndicator.stopAnimating()
-                        cell.imageView.image = UIImage(data: data)
-
+                        cell.setupImage(data: data)
                         photo.photo = data
                         self.viewModel.save()
                     }
@@ -77,11 +81,20 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
             }
         }
     }
+}
 
+extension PhotoAlbumViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        Loader.show(on: self)
+        collectionView.performBatchUpdates({
+            self.viewModel.removePhoto(at: indexPath)
+            collectionView.deleteItems(at: [indexPath])
+        }, completion: nil)
+    }
 }
 
 extension PhotoAlbumViewController: PhotoAlbumViewModelProtocol {
-    func finishedFetching(photos: [PhotoEntity]) {
+    func finishedFetching() {
         Loader.hide()
         collectionView.reloadData()
     }
@@ -90,7 +103,7 @@ extension PhotoAlbumViewController: PhotoAlbumViewModelProtocol {
 
     }
 
-    func removed(photo: PhotoEntity) {
-
+    func removed() {
+        Loader.hide()
     }
 }

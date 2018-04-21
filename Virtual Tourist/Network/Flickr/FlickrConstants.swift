@@ -27,6 +27,7 @@ extension FlickrAPI {
         static let Longitude = "lon"
         static let NoJSONCallback = "nojsoncallback"
         static let SafeSearch = "safe_search"
+        static let PerPage = "per_page"
     }
 
     // -------------------------------------------------------------------------
@@ -39,6 +40,7 @@ extension FlickrAPI {
         static let SafeSearch = "1"
         static let galleriesGetPhotos = "flickr.galleries.getPhotos"
         static let photosSearch = "flickr.photos.search"
+        static let Limit = 20
     }
 
     // -------------------------------------------------------------------------

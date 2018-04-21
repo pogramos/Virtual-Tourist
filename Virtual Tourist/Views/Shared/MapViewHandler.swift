@@ -10,7 +10,7 @@ import MapKit
 
 @objc protocol MapHandlerProtocol: class {
     @objc optional func updateCentral(region: MKCoordinateRegion)
-    @objc optional func pushViewController(with selectedRegion: PinEntity)
+    @objc optional func pushViewController(with selectedRegion: PinEntity, span: MKCoordinateSpan)
 }
 
 class MapHandler: NSObject, MKMapViewDelegate {
@@ -30,7 +30,7 @@ class MapHandler: NSObject, MKMapViewDelegate {
 
                 let pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: pinIdentifier)
                 pin.pinTintColor = .red
-
+                pin.animatesDrop = true
                 return pin
         }
         /// otherwise, just add an annotation
@@ -45,7 +45,7 @@ class MapHandler: NSObject, MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let annotation = view.annotation as? PinEntity {
-            delegate?.pushViewController?(with: annotation)
+            delegate?.pushViewController?(with: annotation, span: mapView.region.span)
             mapView.deselectAnnotation(annotation, animated: true)
         }
     }
