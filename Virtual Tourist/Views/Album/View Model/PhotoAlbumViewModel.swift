@@ -69,9 +69,10 @@ class PhotoAlbumViewModel: NSObject {
     /// Search photos from flickr by the specific coordinate of the location
     func searchPhotos() {
         let parameters: [String: AnyObject] = [
-            FlickrAPI.Key.Latitute: location.latitude as AnyObject,
-            FlickrAPI.Key.Longitude: location.longitude as AnyObject
+            FlickrAPI.Key.Longitude: location.longitude as AnyObject,
+            FlickrAPI.Key.Latitute: location.latitude as AnyObject
         ]
+
         FlickrAPI.searchPhotos(with: parameters, success: { photos in
             if let photos = photos {
                 self.savePhotosAndUpdateUI(photos: photos)
@@ -90,14 +91,8 @@ class PhotoAlbumViewModel: NSObject {
     ///
     /// - Parameter photos: return a collection of Photos
     func savePhotosAndUpdateUI(photos: [Photo]) {
-        for photo in photos {
-            let photoEntity = PhotoEntity(context: dataController.viewContext)
-            photoEntity.identifier = photo.identifier
-            photoEntity.locationEntity = location
-            photoEntity.url = photo.url
-        }
+        FlickrAPI.save(photos: photos, for: location, on: dataController.viewContext) {
 
-        save {
             performUIUpdatesOnMain {
                 self.delegate?.finishedFetching()
             }

@@ -21,39 +21,21 @@ class MapViewModel: NSObject {
     weak var delegate: MapViewModelProtocol?
     var dataController: DataController!
 
-    var initialRegion: MKCoordinateRegion? {
-        get {
-            if let region = UserDefaults.standard.dictionary(forKey: regionKey) {
-                if let latitudeDelta = region[latDeltaKey] as? Double, let longitudeDelta = region[lonDeltaKey] as? Double {
-                    let span = MKCoordinateSpanMake(CLLocationDegrees(latitudeDelta), CLLocationDegrees(longitudeDelta))
-                    if let latitude = region[latitudeKey] as? Double, let longitude = region[longitudeKey] as? Double {
-                        let coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(latitude), CLLocationDegrees(longitude))
-                        return MKCoordinateRegionMake(coordinate, span)
-                    }
-                }
-            }
-            return nil
-        }
-        set {
-            if let region = newValue {
-                let regionDictionary: [String: Any] = [
-                    latitudeKey: region.center.latitude,
-                    longitudeKey: region.center.longitude,
-                    latDeltaKey: region.span.latitudeDelta,
-                    lonDeltaKey: region.span.longitudeDelta
-                ]
-                UserDefaults.standard.set(regionDictionary, forKey: regionKey)
-            } else {
-                UserDefaults.standard.removeObject(forKey: regionKey)
-            }
-            UserDefaults.standard.synchronize()
-        }
-    }
+    var initialArea: Region?
 
     fileprivate lazy var fetchedResultsController: NSFetchedResultsController<PinEntity> = makeFetchedResultsController()
 
     init(_ dataController: DataController) {
         self.dataController = dataController
+
+        let fetchRegion: NSFetchRequest<Region> = Region.fetchRequest()
+        do {
+            if let region = try dataController.viewContext.fetch(fetchRegion).first {
+                initialArea = region
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 
     /// Make an instance of a NSFetchedResultsController for its lazy var
@@ -67,6 +49,14 @@ class MapViewModel: NSObject {
         fetchedResultsController.delegate = self
 
         return fetchedResultsController
+    }
+
+    func updateInitialArea(region: MKCoordinateRegion) {
+        if initialArea == nil {
+            initialArea = Region(context: dataController.viewContext, region: region)
+        } else {
+            initialArea?.region = region
+        }
     }
 
     /// Fetch information from the core data
@@ -94,6 +84,22 @@ class MapViewModel: NSObject {
         locationEntity.longitude = Float(coordinate.longitude)
 
         try? dataController.viewContext.save()
+    }
+
+    func fetchPhotos(on location: PinEntity) {
+        let parameters: [String: AnyObject] = [
+            FlickrAPI.Key.Longitude: location.longitude as AnyObject,
+            FlickrAPI.Key.Latitute: location.latitude as AnyObject
+        ]
+        FlickrAPI.searchPhotos(with: parameters, success: { photos in
+            FlickrAPI.save(photos: photos ?? [], for: location, on: self.dataController.viewContext, completion: {
+                performUIUpdatesOnMain {
+                    self.delegate?.savedPhotos()
+                }
+            })
+        }, failure: { error in
+            fatalError(error.localizedDescription)
+        })
     }
 }
 

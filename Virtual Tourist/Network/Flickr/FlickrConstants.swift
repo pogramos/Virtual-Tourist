@@ -28,6 +28,7 @@ extension FlickrAPI {
         static let NoJSONCallback = "nojsoncallback"
         static let SafeSearch = "safe_search"
         static let PerPage = "per_page"
+        static let BoundingBox = "bbox"
     }
 
     // -------------------------------------------------------------------------
@@ -41,6 +42,10 @@ extension FlickrAPI {
         static let galleriesGetPhotos = "flickr.galleries.getPhotos"
         static let photosSearch = "flickr.photos.search"
         static let Limit = 20
+        static let SearchBBoxHalfWidth = 1.0
+        static let SearchBBoxHalfHeight = 1.0
+        static let SearchLatRange = (-90.0, 90.0)
+        static let SearchLonRange = (-180.0, 180.0)
     }
 
     // -------------------------------------------------------------------------
@@ -51,5 +56,17 @@ extension FlickrAPI {
         static let Photo = "photo"
         static let Title = "title"
         static let MediumURL = "url_m"
+    }
+}
+
+extension FlickrAPI {
+    class func boundingBoxString(latitude: Double, longitude: Double) -> String {
+        let minLat = max(latitude - Value.SearchBBoxHalfHeight, Value.SearchLatRange.0)
+        let minLon = max(longitude - Value.SearchBBoxHalfWidth, Value.SearchLonRange.0)
+
+        let maxLat = min(latitude + Value.SearchBBoxHalfHeight, Value.SearchLatRange.1)
+        let maxLon = min(longitude + Value.SearchBBoxHalfWidth, Value.SearchLonRange.1)
+
+        return "\(minLon),\(minLat),\(maxLon),\(maxLat)"
     }
 }

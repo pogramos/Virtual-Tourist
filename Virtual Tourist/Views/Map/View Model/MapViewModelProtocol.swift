@@ -29,4 +29,8 @@ protocol MapViewModelProtocol: class {
     ///
     /// - Parameter location: LocationEntity object
     func updated(location: PinEntity)
+
+    /// Tells the delegate that the context finished saving the photos
+    /// and hide the loader
+    func savedPhotos()
 }

@@ -23,10 +23,13 @@ class MapViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Loader.show(on: self)
+
         viewModel.fetchData()
-        if let region = viewModel.initialRegion {
-            mapView.region = region
+
+        if let region = viewModel.initialArea {
+            mapView.region = region.region
         }
+
         navigationController?.isNavigationBarHidden = true
     }
 
@@ -54,22 +57,15 @@ class MapViewController: UIViewController {
         if gesture.state == .began {
             let touchPoint = gesture.location(in: mapView)
             let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+            Loader.show(on: self)
             viewModel.addAnnotation(on: coordinate)
         }
-    }
-
-    func add(location: PinEntity) {
-        mapView.addAnnotation(location)
-    }
-
-    func remove(location: PinEntity) {
-        mapView.removeAnnotation(location)
     }
 }
 
 extension MapViewController: MapHandlerProtocol {
     func updateCentral(region: MKCoordinateRegion) {
-        viewModel.initialRegion = region
+        viewModel.updateInitialArea(region: region)
     }
 
     func pushViewController(with selectedRegion: PinEntity, span: MKCoordinateSpan) {
@@ -80,23 +76,29 @@ extension MapViewController: MapHandlerProtocol {
 }
 
 extension MapViewController: MapViewModelProtocol {
+    func savedPhotos() {
+        Loader.hide()
+    }
+
     func finishedFetching(locations: [PinEntity]) {
         for point in locations {
-            add(location: point)
+            mapView.addAnnotation(point)
         }
         Loader.hide()
     }
 
     func added(location: PinEntity) {
-        add(location: location)
+        mapView.addAnnotation(location)
+        Loader.show(on: self)
+        viewModel.fetchPhotos(on: location)
     }
 
     func removed(location: PinEntity) {
-        remove(location: location)
+        mapView.removeAnnotation(location)
     }
 
     func updated(location: PinEntity) {
-        remove(location: location)
-        add(location: location)
+        mapView.removeAnnotation(location)
+        mapView.addAnnotation(location)
     }
 }

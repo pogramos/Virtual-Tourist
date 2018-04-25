@@ -9,6 +9,7 @@
 import MapKit
 
 @objc protocol MapHandlerProtocol: class {
+    @objc optional func update(pin: PinEntity)
     @objc optional func updateCentral(region: MKCoordinateRegion)
     @objc optional func pushViewController(with selectedRegion: PinEntity, span: MKCoordinateSpan)
 }
@@ -49,4 +50,5 @@ class MapHandler: NSObject, MKMapViewDelegate {
             mapView.deselectAnnotation(annotation, animated: true)
         }
     }
+    
 }

@@ -12,8 +12,15 @@
         <attribute name="longitude" optional="YES" attributeType="Float" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="photosEntity" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PhotoEntity" inverseName="locationEntity" inverseEntity="PhotoEntity" syncable="YES"/>
     </entity>
+    <entity name="Region" representedClassName="Region" syncable="YES">
+        <attribute name="deltaLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="deltaLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="PinEntity" positionX="-261" positionY="29" width="108" height="90"/>
         <element name="PhotoEntity" positionX="-54" positionY="14" width="128" height="118"/>
+        <element name="PinEntity" positionX="-261" positionY="29" width="108" height="90"/>
+        <element name="Region" positionX="-153" positionY="63" width="128" height="105"/>
     </elements>
 </model>
