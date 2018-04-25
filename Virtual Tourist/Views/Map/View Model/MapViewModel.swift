@@ -117,7 +117,7 @@ extension MapViewModel: NSFetchedResultsControllerDelegate {
         case .update:
             delegate?.updated(location: location)
         case .move:
-            fatalError("How did we move a Point? We have a stable sort.")
+            fatalError("No moving pins... yet")
         }
     }
 }

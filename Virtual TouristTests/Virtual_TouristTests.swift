@@ -23,17 +23,17 @@ class VirtualTouristTests: XCTestCase {
     }
 
     func testClientRequest() {
-        let request = ClientRequest.buildRequest(host: ClientAPI.Constants.APIHost, path: ClientAPI.Constants.APIPath, parameters: [:])
+        let request = ClientRequest.buildRequest(host: FlickrAPI.Constants.APIHost, path: FlickrAPI.Constants.APIPath, parameters: [:])
 
-        XCTAssertEqual(request.url?.absoluteString, "\(ClientAPI.Constants.APIScheme)://\(ClientAPI.Constants.APIHost)\(ClientAPI.Constants.APIPath)")
+        XCTAssertEqual(request.url?.absoluteString, "\(FlickrAPI.Constants.APIScheme)://\(FlickrAPI.Constants.APIHost)\(FlickrAPI.Constants.APIPath)")
     }
 
     func testGet() {
-        let expected = [PhotoModel(identifier: "1a2b3c", title: "teste", url: "https://www.google.com.br")]
+        let expected = [Photo(identifier: "1a2b3c", title: "teste", url: "https://www.google.com.br")]
         let request = URLRequest(url: URL(string: "http://www.google.com.br")!)
         session.nextResponse = MockURLSession.response200()
         session.nextData = encode(expected)
-        client.get(request: request, for: [PhotoModel].self, success: { data in
+        client.get(request: request, for: [Photo].self, success: { data in
             XCTAssertEqual(data!, expected)
         }, failure: { (error) in
             XCTFail(error?.localizedDescription ?? "")
