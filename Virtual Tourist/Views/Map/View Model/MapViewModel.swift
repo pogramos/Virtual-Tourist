@@ -52,11 +52,12 @@ class MapViewModel: NSObject {
     }
 
     func updateInitialArea(region: MKCoordinateRegion) {
+
         if initialArea == nil {
-            initialArea = Region(context: dataController.viewContext, region: region)
-        } else {
-            initialArea?.region = region
+            initialArea = Region(context: dataController.viewContext)
         }
+        initialArea?.region = region
+
     }
 
     /// Fetch information from the core data

@@ -12,7 +12,7 @@
         <attribute name="longitude" optional="YES" attributeType="Float" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="photosEntity" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PhotoEntity" inverseName="locationEntity" inverseEntity="PhotoEntity" syncable="YES"/>
     </entity>
-    <entity name="Region" representedClassName="Region" syncable="YES">
+    <entity name="Region" representedClassName="Region" syncable="YES" codeGenerationType="class">
         <attribute name="deltaLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="deltaLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
