@@ -14,7 +14,9 @@ class PhotoAlbumViewController: UIViewController, MapHandlerProtocol {
     var mapHandler: MapHandler!
 
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var labelView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var newCollectionButton: UIButton!
 
     class func instance() -> Self {
         return instance(from: "Album", identifier: String(describing: self.self))
@@ -29,6 +31,7 @@ class PhotoAlbumViewController: UIViewController, MapHandlerProtocol {
         super.viewWillAppear(animated)
         Loader.show(on: self)
         viewModel.fetchData()
+        newCollectionButton.isEnabled = false
         mapView.addAnnotation(viewModel.location)
         mapView.setRegion(viewModel.region, animated: true)
     }
@@ -96,7 +99,15 @@ extension PhotoAlbumViewController: UICollectionViewDelegate {
 extension PhotoAlbumViewController: PhotoAlbumViewModelProtocol {
     func finishedFetching() {
         Loader.hide()
-        collectionView.reloadData()
+        newCollectionButton.isEnabled = true
+        if self.viewModel.numberOfItemsInSection(section: 0) > 0 {
+            collectionView.isHidden = false
+            labelView.isHidden = true
+            collectionView.reloadData()
+        } else {
+            collectionView.isHidden = true
+            labelView.isHidden = false
+        }
     }
 
     func updated(photos: [PhotoEntity]) {
