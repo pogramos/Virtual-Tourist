@@ -50,5 +50,5 @@ class MapHandler: NSObject, MKMapViewDelegate {
             mapView.deselectAnnotation(annotation, animated: true)
         }
     }
-    
+
 }

@@ -23,7 +23,8 @@ class FlickrAPI {
         parameters[Key.SafeSearch] = Value.SafeSearch as AnyObject
         parameters[Key.NoJSONCallback] = Value.DisableCallback as AnyObject
         parameters[Key.Format] = Value.Format as AnyObject
-        parameters[Key.PerPage] = Value.Limit as AnyObject
+        parameters[Key.Radius] = Value.Radius as AnyObject
+        parameters[Key.RadiusUnits] = Value.RadiusUnits as AnyObject
 
         return parameters
     }
@@ -34,13 +35,12 @@ class FlickrAPI {
     ///   - parameters: array of parameters that will be passed to the api
     ///   - success: success block that will return with the array of photos that were found
     ///   - failure: failure block that will be invoked if the service reach any error
-    class func searchPhotos(with parameters: [String: AnyObject], success: @escaping ([Photo]?) -> Void, failure: @escaping (ClientError) -> Void) {
+    class func searchPhotos(with parameters: [String: AnyObject], success: @escaping (Photos?) -> Void, failure: @escaping (ClientError) -> Void) {
         var parameters = base(parameters: parameters)
         parameters[Key.Method] = Value.photosSearch as AnyObject
-
         let request = ClientRequest.buildRequest(host: Constants.APIHost, path: Constants.APIPath, parameters: parameters)
         ClientAPI().get(request: request, for: Result.self, success: { result in
-            success(result?.photos?.photo)
+            success(result?.photos)
         }, failure: { error in
             failure(error ?? .error(nil))
         })
@@ -71,25 +71,19 @@ class FlickrAPI {
     /// - Parameters:
     ///   - url: url string of an image
     ///   - completion: completion block to execute after the proccess is finished
-    class func downloadImage(from url: String, completion: @escaping (Data?) -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            if let imageURL = URL(string: url) {
-                do {
-                    let data = try Data(contentsOf: imageURL)
-                    performUIUpdatesOnMain {
-                        completion(data)
-                    }
-                } catch {
-                    performUIUpdatesOnMain {
-                        completion(nil)
-                    }
-                }
-            } else {
-                performUIUpdatesOnMain {
-                    completion(nil)
-                }
+    class func downloadImage(from url: String, completion: @escaping (Data?, String?) -> Void) {
+        let imageURL = URL(string: url)
+        let request = URLRequest(url: imageURL!)
+        let task = ClientAPI().taskHandler(request: request, success: { data in
+            performUIUpdatesOnMain {
+                completion(data, nil)
             }
-        }
+        }, failure: { error in
+            performUIUpdatesOnMain {
+                completion(nil, error?.localizedDescription)
+            }
+        })
+        task.resume()
     }
 
     /// Save photos downloaded from the service on the core data

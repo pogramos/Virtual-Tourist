@@ -8,16 +8,7 @@
 
 import Foundation
 
-struct Result: Codable {
+struct Result: Codable, Equatable {
     let photos: Photos?
     let stat: String?
-}
-
-extension Result: Equatable {
-    static func == (lhs: Result, rhs: Result) -> Bool {
-        if let lPhotos = lhs.photos, let rPhotos = rhs.photos, lhs.stat == rhs.stat {
-            return lPhotos == rPhotos
-        }
-        return false
-    }
 }

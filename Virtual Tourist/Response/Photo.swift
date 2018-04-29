@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Photo: Codable {
+struct Photo: Codable, Equatable {
     let identifier: String?
     let title: String?
     let url: String?
@@ -17,13 +17,5 @@ struct Photo: Codable {
         case identifier = "id"
         case title
         case url = "url_m"
-    }
-}
-
-extension Photo: Equatable {
-    static func == (lhs: Photo, rhs: Photo) -> Bool {
-        return lhs.identifier == rhs.identifier &&
-               lhs.title == rhs.title &&
-               lhs.url == rhs.url
     }
 }

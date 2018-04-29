@@ -14,7 +14,14 @@ class PhotoAlbumCollectionViewCell: UICollectionViewCell {
 
     func setupImage(data: Data) {
         self.imageView.image = UIImage(data: data)
+        self.imageView.alpha = 1
         self.activityIndicator.hidesWhenStopped = true
         self.activityIndicator.stopAnimating()
+    }
+
+    func setDefaultImage() {
+        self.imageView.image = #imageLiteral(resourceName: "Default-Image")
+        self.imageView.alpha = 0.3
+        self.activityIndicator.startAnimating()
     }
 }

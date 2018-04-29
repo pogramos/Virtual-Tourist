@@ -32,13 +32,12 @@
 		E6C5A60F207BF2AE00990481 /* PhotoAlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C5A60E207BF2AE00990481 /* PhotoAlbumViewModel.swift */; };
 		E6C5A611207BF2CA00990481 /* PhotoAlbumViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C5A610207BF2CA00990481 /* PhotoAlbumViewModelProtocol.swift */; };
 		E6C5A614207D054D00990481 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C5A613207D054D00990481 /* UIViewController+Extension.swift */; };
+		E6DB6626209543B900F56FC6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DB6625209543B900F56FC6 /* Constants.swift */; };
 		E6EE08D42076B56F00584152 /* ClientAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE08D32076B56F00584152 /* ClientAPI.swift */; };
 		E6EE08D62076B57A00584152 /* ClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE08D52076B57A00584152 /* ClientProtocol.swift */; };
 		E6EE08D82076B58300584152 /* ClientRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE08D72076B58300584152 /* ClientRequest.swift */; };
 		E6EE08DE2076B6A300584152 /* FlickrAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE08DD2076B6A300584152 /* FlickrAPI.swift */; };
 		E6F7F9DC20695DDA0016EF90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F7F9DB20695DDA0016EF90 /* AppDelegate.swift */; };
-		E6F7F9DE20695DDA0016EF90 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F7F9DD20695DDA0016EF90 /* ViewController.swift */; };
-		E6F7F9E120695DDA0016EF90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6F7F9DF20695DDA0016EF90 /* Main.storyboard */; };
 		E6F7F9E420695DDA0016EF90 /* Virtual_Tourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E6F7F9E220695DDA0016EF90 /* Virtual_Tourist.xcdatamodeld */; };
 		E6F7F9E620695DDA0016EF90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6F7F9E520695DDA0016EF90 /* Assets.xcassets */; };
 		E6F7F9E920695DDA0016EF90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6F7F9E720695DDA0016EF90 /* LaunchScreen.storyboard */; };
@@ -81,14 +80,13 @@
 		E6C5A60E207BF2AE00990481 /* PhotoAlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewModel.swift; sourceTree = "<group>"; };
 		E6C5A610207BF2CA00990481 /* PhotoAlbumViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewModelProtocol.swift; sourceTree = "<group>"; };
 		E6C5A613207D054D00990481 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		E6DB6625209543B900F56FC6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E6EE08D32076B56F00584152 /* ClientAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientAPI.swift; sourceTree = "<group>"; };
 		E6EE08D52076B57A00584152 /* ClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientProtocol.swift; sourceTree = "<group>"; };
 		E6EE08D72076B58300584152 /* ClientRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientRequest.swift; sourceTree = "<group>"; };
 		E6EE08DD2076B6A300584152 /* FlickrAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrAPI.swift; sourceTree = "<group>"; };
 		E6F7F9D820695DDA0016EF90 /* Virtual Tourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Virtual Tourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6F7F9DB20695DDA0016EF90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E6F7F9DD20695DDA0016EF90 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		E6F7F9E020695DDA0016EF90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E6F7F9E320695DDA0016EF90 /* Virtual_Tourist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Virtual_Tourist.xcdatamodel; sourceTree = "<group>"; };
 		E6F7F9E520695DDA0016EF90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E6F7F9E820695DDA0016EF90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -121,6 +119,7 @@
 			children = (
 				55181D742086E3A2006702E0 /* Loader.swift */,
 				55181D762086E591006702E0 /* GCDBlackBox.swift */,
+				E6DB6625209543B900F56FC6 /* Constants.swift */,
 			);
 			path = Convenience;
 			sourceTree = "<group>";
@@ -250,12 +249,10 @@
 		E6C5A6062078207000990481 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				E6F7F9DD20695DDA0016EF90 /* ViewController.swift */,
 				E6F7F9DB20695DDA0016EF90 /* AppDelegate.swift */,
 				E6F7F9E520695DDA0016EF90 /* Assets.xcassets */,
 				E6F7F9EA20695DDA0016EF90 /* Info.plist */,
 				E6F7F9E720695DDA0016EF90 /* LaunchScreen.storyboard */,
-				E6F7F9DF20695DDA0016EF90 /* Main.storyboard */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -384,7 +381,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Progeekt;
 				TargetAttributes = {
 					E6F7F9D720695DDA0016EF90 = {
@@ -424,7 +421,6 @@
 			files = (
 				E6F7F9E920695DDA0016EF90 /* LaunchScreen.storyboard in Resources */,
 				E6F7F9E620695DDA0016EF90 /* Assets.xcassets in Resources */,
-				E6F7F9E120695DDA0016EF90 /* Main.storyboard in Resources */,
 				E6C5A5E52077E87D00990481 /* Map.storyboard in Resources */,
 				E6C5A609207BE4BF00990481 /* Album.storyboard in Resources */,
 			);
@@ -465,7 +461,6 @@
 				E6EE08D62076B57A00584152 /* ClientProtocol.swift in Sources */,
 				E6C5A60220780A3600990481 /* LocationEntity+Extensions.swift in Sources */,
 				E68777CA2077A57B008EFBBC /* FlickrConstants.swift in Sources */,
-				E6F7F9DE20695DDA0016EF90 /* ViewController.swift in Sources */,
 				E6EE08D42076B56F00584152 /* ClientAPI.swift in Sources */,
 				E68777CD2077A8AE008EFBBC /* Photo.swift in Sources */,
 				E6C5A60B207BF27400990481 /* PhotoAlbumViewController.swift in Sources */,
@@ -473,6 +468,7 @@
 				E6C5A5E72077EAD200990481 /* Photos.swift in Sources */,
 				E6C5A5E92077EBF000990481 /* Result.swift in Sources */,
 				E6C5A5EE2077F2BD00990481 /* NSManagedObjectContext+Extension.swift in Sources */,
+				E6DB6626209543B900F56FC6 /* Constants.swift in Sources */,
 				55181D772086E591006702E0 /* GCDBlackBox.swift in Sources */,
 				55181D8220903C02006702E0 /* Region+Extensions.swift in Sources */,
 				E6C5A5F12077F40600990481 /* UIViewController+UI.swift in Sources */,
@@ -513,14 +509,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		E6F7F9DF20695DDA0016EF90 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E6F7F9E020695DDA0016EF90 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E6F7F9E720695DDA0016EF90 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -546,6 +534,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -553,6 +542,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -603,6 +593,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -610,6 +601,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

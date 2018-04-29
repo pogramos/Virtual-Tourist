@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 
 class MapViewController: UIViewController {
+    let longPressMinimumDuration = 0.5
     var viewModel: MapViewModel!
     var mapHandler: MapHandler!
     @IBOutlet weak var mapView: MKMapView!
@@ -49,11 +50,11 @@ class MapViewController: UIViewController {
     /// to add the new pin on the selected location
     fileprivate func setupGestureRecognizer() {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction(gesture:)))
-        longPressGesture.minimumPressDuration = 1
+        longPressGesture.minimumPressDuration = longPressMinimumDuration
         mapView.addGestureRecognizer(longPressGesture)
     }
 
-    @objc func longPressAction(gesture: UIGestureRecognizer) {
+    @objc fileprivate func longPressAction(gesture: UIGestureRecognizer) {
         if gesture.state == .began {
             let touchPoint = gesture.location(in: mapView)
             let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)

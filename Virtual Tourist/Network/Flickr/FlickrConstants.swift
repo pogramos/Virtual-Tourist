@@ -29,6 +29,9 @@ extension FlickrAPI {
         static let SafeSearch = "safe_search"
         static let PerPage = "per_page"
         static let BoundingBox = "bbox"
+        static let Page = "page"
+        static let Radius = "radius"
+        static let RadiusUnits = "radius_units"
     }
 
     // -------------------------------------------------------------------------
@@ -46,6 +49,8 @@ extension FlickrAPI {
         static let SearchBBoxHalfHeight = 1.0
         static let SearchLatRange = (-90.0, 90.0)
         static let SearchLonRange = (-180.0, 180.0)
+        static let Radius = "2"
+        static let RadiusUnits = "km"
     }
 
     // -------------------------------------------------------------------------

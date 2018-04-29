@@ -13,10 +13,12 @@ import MapKit
 class PhotoAlbumViewModel: NSObject {
 
     weak var delegate: PhotoAlbumViewModelProtocol?
+
     var dataController: DataController!
     let location: PinEntity!
     let span: MKCoordinateSpan!
     private (set) var region: MKCoordinateRegion!
+    private var page = 0
 
     fileprivate lazy var fetchedResultsController: NSFetchedResultsController<PhotoEntity> = makeFetchedResultsController()
 
@@ -68,13 +70,20 @@ class PhotoAlbumViewModel: NSObject {
 
     /// Search photos from flickr by the specific coordinate of the location
     func searchPhotos() {
+        page += 1
         let parameters: [String: AnyObject] = [
             FlickrAPI.Key.Longitude: location.longitude as AnyObject,
-            FlickrAPI.Key.Latitute: location.latitude as AnyObject
+            FlickrAPI.Key.Latitute: location.latitude as AnyObject,
+            FlickrAPI.Key.Page: page as AnyObject
         ]
 
         FlickrAPI.searchPhotos(with: parameters, success: { photos in
-            if let photos = photos {
+            // Check if the queries reached the max number of pages
+            if let pages = photos?.pages, self.page > pages {
+                // if it reaches the end, start over from the 1st page
+                self.page = 0
+            }
+            if let photos = photos?.photo {
                 self.savePhotosAndUpdateUI(photos: photos)
             } else {
                 self.savePhotosAndUpdateUI(photos: [])
@@ -92,7 +101,6 @@ class PhotoAlbumViewModel: NSObject {
     /// - Parameter photos: return a collection of Photos
     func savePhotosAndUpdateUI(photos: [Photo]) {
         FlickrAPI.save(photos: photos, for: location, on: dataController.viewContext) {
-
             performUIUpdatesOnMain {
                 self.delegate?.finishedFetching()
             }

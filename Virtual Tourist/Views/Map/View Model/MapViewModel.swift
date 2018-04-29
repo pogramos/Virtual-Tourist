@@ -38,6 +38,9 @@ class MapViewModel: NSObject {
         }
     }
 
+    // -------------------------------------------------------------------------
+    // MARK: - Location handling
+
     /// Make an instance of a NSFetchedResultsController for its lazy var
     ///
     /// - Returns: NSFetchedResultsController<LocationEntity> for a lazy var
@@ -87,13 +90,16 @@ class MapViewModel: NSObject {
         try? dataController.viewContext.save()
     }
 
+    // -------------------------------------------------------------------------
+    // MARK: - Photo handling
+
     func fetchPhotos(on location: PinEntity) {
         let parameters: [String: AnyObject] = [
             FlickrAPI.Key.Longitude: location.longitude as AnyObject,
             FlickrAPI.Key.Latitute: location.latitude as AnyObject
         ]
-        FlickrAPI.searchPhotos(with: parameters, success: { photos in
-            FlickrAPI.save(photos: photos ?? [], for: location, on: self.dataController.viewContext, completion: {
+        FlickrAPI.searchPhotos(with: parameters, success: { photo in
+            FlickrAPI.save(photos: photo?.photo ?? [], for: location, on: self.dataController.viewContext, completion: {
                 performUIUpdatesOnMain {
                     self.delegate?.savedPhotos()
                 }

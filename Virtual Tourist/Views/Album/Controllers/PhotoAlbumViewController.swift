@@ -24,19 +24,23 @@ class PhotoAlbumViewController: UIViewController, MapHandlerProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupDelegates()
+        configDelegates()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        configUI()
+    }
+
+    fileprivate func configUI() {
         Loader.show(on: self)
-        viewModel.fetchData()
         newCollectionButton.isEnabled = false
+        viewModel.fetchData()
         mapView.addAnnotation(viewModel.location)
         mapView.setRegion(viewModel.region, animated: true)
     }
 
-    fileprivate func setupDelegates() {
+    fileprivate func configDelegates() {
         viewModel.delegate = self
         mapHandler = MapHandler(self)
         mapView.delegate = mapHandler
@@ -44,6 +48,7 @@ class PhotoAlbumViewController: UIViewController, MapHandlerProtocol {
 
     @IBAction func newCollection(_ sender: Any) {
         Loader.show(on: self)
+        newCollectionButton.isEnabled = false
         viewModel.fetchNewCollection()
     }
 }
@@ -72,9 +77,12 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
         if let data = photo.photo {
             cell.setupImage(data: data)
         } else {
-            cell.activityIndicator.startAnimating()
+            cell.setDefaultImage()
             if let url = photo.url {
-                FlickrAPI.downloadImage(from: url) { data in
+                FlickrAPI.downloadImage(from: url) { (data, error) in
+                    if error != nil {
+                        fatalError("Couldn't download the image \(url): \(String(describing: error))")
+                    }
                     if let data = data {
                         cell.setupImage(data: data)
                         photo.photo = data

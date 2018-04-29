@@ -9,8 +9,8 @@
 import UIKit
 
 class Loader: NSObject {
-    static var blurredView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-    static var indicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+    static var blurredView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+    static var indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
 
     /// Setup loading activity properties
     ///
